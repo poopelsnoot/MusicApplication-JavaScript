@@ -3,9 +3,6 @@ import {seedGenerator, uniqueId, randomNumber, deepCopy, isEqual} from '../Seido
 
 const _seeder = new seedGenerator();
 let _artists = _seeder.allQuotes;
-//let _search = input från html
-//_artists = _artists.filter ((item) => item.quote.toLowerCase().includes('love'))
-
 
 
 function fillList() {
@@ -29,13 +26,16 @@ function clickHandlerAllQ (event) {
  fillList();
 }
 
-function clickHandlerLoveQ (event) {
-    _artists = _seeder.allQuotes;
-    _artists = _artists.filter((item) => item.quote.toLowerCase().includes('love'));
-    fillList();
+function clickHandlerSearch (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        const searchText = event.target.value.toLowerCase();
+        _artists = _seeder.allQuotes.filter ((item) => item.quote.toLowerCase().includes(searchText));
+        fillList();
+    }
 }
 
+const searchInput = document.getElementById("searchBar");
 const allQ = document.querySelector('#all-quotes-btn');
-const loveQ = document.querySelector('#love-quotes-btn');
 allQ.addEventListener('click', clickHandlerAllQ);
-loveQ.addEventListener('click', clickHandlerLoveQ);
+searchInput.addEventListener("keyup", clickHandlerSearch);
