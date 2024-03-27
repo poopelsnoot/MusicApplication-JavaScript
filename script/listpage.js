@@ -3,16 +3,34 @@ import {seedGenerator, uniqueId, randomNumber, deepCopy, isEqual} from '../Seido
 
 const _seeder = new seedGenerator();
 let _artists = _seeder.allQuotes;
+const _list = document.getElementById('list-of-items');
 
+//search bar and buttons
+const allQ = document.querySelector('#all-quotes-btn');
+const searchInput = document.getElementById("searchBar");
+const searchHits = document.querySelector('#search-hits');
+allQ.addEventListener('click', clickHandlerAllQ);
+searchInput.addEventListener("keyup", clickHandlerSearch);
 
-function fillList() {
-    const _list = document.getElementById('list-of-items');
+//next-prev buttons
+const btnNext = document.querySelector('#btnNext');
+const btnPrev = document.querySelector('#btnPrev');
+btnNext.addEventListener('click', clickNext);
+btnPrev.addEventListener('click', clickPrev);
 
-    while(_list.firstChild){  
-        _list.removeChild(_list.firstChild);
-    }
+//pages
+let currentPage = 0;
+const pageSize = 10;
+let maxNrPages = Math.ceil(_artists.length/pageSize);
+ 
+removeAllChildNodes(_list);
+fillList(0);
 
-    for (const q of _artists) {
+function fillList(renderPage) {
+
+    searchHits.innerHTML = `The database now contains ${_artists.length} music groups`;
+    const pData = _artists.slice(pageSize*renderPage, pageSize*renderPage+pageSize);
+    for (const q of pData) {
         const div = document.createElement('div');
         div.classList.add('col-md-12', 'themed-grid-col');
     
@@ -21,9 +39,34 @@ function fillList() {
     }
 }    
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+function clickNext (event)  {
+    currentPage++;
+    if (currentPage > maxNrPages-1) currentPage = maxNrPages-1;
+
+    removeAllChildNodes(_list);
+    fillList(currentPage)
+};
+
+function clickPrev (event)  {
+    currentPage--;
+    if (currentPage < 0) currentPage = 0;
+
+    removeAllChildNodes(_list);
+    fillList(currentPage)
+};
+
 function clickHandlerAllQ (event) {
  _artists = _seeder.allQuotes;
- fillList();
+ maxNrPages = Math.ceil(_artists.length/pageSize);
+ currentPage = 0;
+ removeAllChildNodes(_list);
+ fillList(0);
 }
 
 function clickHandlerSearch (event) {
@@ -31,11 +74,15 @@ function clickHandlerSearch (event) {
         event.preventDefault();
         const searchText = event.target.value.toLowerCase();
         _artists = _seeder.allQuotes.filter ((item) => item.quote.toLowerCase().includes(searchText));
-        fillList();
+        maxNrPages = Math.ceil(_artists.length/pageSize);
+        currentPage = 0;
+        removeAllChildNodes(_list);
+        fillList(0);
+        searchInput.value = null;
     }
 }
 
-const searchInput = document.getElementById("searchBar");
-const allQ = document.querySelector('#all-quotes-btn');
-allQ.addEventListener('click', clickHandlerAllQ);
-searchInput.addEventListener("keyup", clickHandlerSearch);
+
+
+
+
