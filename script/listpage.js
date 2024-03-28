@@ -4,6 +4,7 @@ import {seedGenerator, uniqueId, randomNumber, deepCopy, isEqual} from '../Seido
 const _seeder = new seedGenerator();
 let _artists = _seeder.allQuotes;
 const _list = document.getElementById('list-of-items');
+const _pageNrBtns = document.getElementById('page-number-btn');
 
 //search bar and buttons
 const allQ = document.querySelector('#all-quotes-btn');
@@ -12,7 +13,7 @@ const searchHits = document.querySelector('#search-hits');
 allQ.addEventListener('click', clickHandlerAllQ);
 searchInput.addEventListener("keyup", clickHandlerSearch);
 
-//next-prev buttons
+//pagination buttons
 const btnNext = document.querySelector('#btnNext');
 const btnPrev = document.querySelector('#btnPrev');
 btnNext.addEventListener('click', clickNext);
@@ -24,6 +25,7 @@ const pageSize = 10;
 let maxNrPages = Math.ceil(_artists.length/pageSize);
  
 removeAllChildNodes(_list);
+removeAllChildNodes(_pageNrBtns);
 fillList(0);
 
 function fillList(renderPage) {
@@ -36,6 +38,14 @@ function fillList(renderPage) {
     
         div.innerText = q.quote;
         _list.appendChild(div);
+    }
+
+    for (let index = 0; index < maxNrPages; index++) {
+        const btn = document.createElement('button');
+        btn.classList.add('page-link', 'page-btn');
+        btn.innerText = `${index + 1}`;
+        btn.addEventListener('click', clickNumber);
+        _pageNrBtns.appendChild(btn);
     }
 }    
 
@@ -50,6 +60,7 @@ function clickNext (event)  {
     if (currentPage > maxNrPages-1) currentPage = maxNrPages-1;
 
     removeAllChildNodes(_list);
+    removeAllChildNodes(_pageNrBtns);
     fillList(currentPage)
 };
 
@@ -58,14 +69,27 @@ function clickPrev (event)  {
     if (currentPage < 0) currentPage = 0;
 
     removeAllChildNodes(_list);
+    removeAllChildNodes(_pageNrBtns);
     fillList(currentPage)
 };
+
+function clickNumber (event) {
+    event.preventDefault(); 
+    const page = parseInt(event.target.innerText) - 1;
+    if (page !== currentPage) { 
+        currentPage = page; 
+        removeAllChildNodes(_list);
+        removeAllChildNodes(_pageNrBtns);
+        fillList(currentPage); 
+    } 
+}
 
 function clickHandlerAllQ (event) {
  _artists = _seeder.allQuotes;
  maxNrPages = Math.ceil(_artists.length/pageSize);
  currentPage = 0;
  removeAllChildNodes(_list);
+ removeAllChildNodes(_pageNrBtns);
  fillList(0);
 }
 
@@ -77,10 +101,15 @@ function clickHandlerSearch (event) {
         maxNrPages = Math.ceil(_artists.length/pageSize);
         currentPage = 0;
         removeAllChildNodes(_list);
+        removeAllChildNodes(_pageNrBtns);
         fillList(0);
         searchInput.value = null;
     }
 }
+
+
+
+
 
 
 
