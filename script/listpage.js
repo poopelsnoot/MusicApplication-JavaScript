@@ -43,6 +43,7 @@ function fillList(renderPage) {
         const button = document.createElement('button');
         button.textContent = 'More info';
         button.classList.add('btn', 'btn-outline-success');
+        button.addEventListener('click', clickHandlerMoreInfo);
         div.appendChild(button);
 
         _list.appendChild(div);
@@ -115,6 +116,10 @@ function clickHandlerSearch (event) {
     }
 }
 
+function clickHandlerMoreInfo (event) {
+    
+    document.location.href = './detailsPage.html';
+}
 
 
 

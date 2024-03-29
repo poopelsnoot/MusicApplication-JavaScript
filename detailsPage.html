@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="Martin Lenart, Seido AB">
+  
+      <title>World of Music</title>
+    
+      <link rel="apple-touch-icon" sizes="180x180" href="./favicon_io/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="./favicon_io/favicon-16x16.png">
+      <link rel="manifest" href="./favicon_io/site.webmanifest">
+      <link rel="stylesheet" href="css/detailsPage.css">
+  
+      <!-- Bootstrap styles from their respective templates -->
+      <link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet">
+      <link href="./css/bootstrap/navbars-offcanvas.css" rel="stylesheet">
+      <link href="./css/bootstrap/features.css" rel="stylesheet">
+      <link href="./css/bootstrap/grid.css" rel="stylesheet">
+      <link href="./css/bootstrap/sign-in.css" rel="stylesheet">
+      <link href="./css/bootstrap/modals.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <span class="fs-4">World of Music</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="./homepage.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="./listpage.html" class="nav-link">Artists</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <main>
+        <div class="container px-4 py-4" id="view-item">
+            <h2 class="pb-2 border-bottom">View details of a music group
+              <a href="#edit-item"  >
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#edit"/></svg>
+              </a>
+            </h2>
+            <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-5">
+              <div class="col-md-7 col-lg-10">
+                  <form class="needs-validation" novalidate>
+                      <div class="row g-3">
+                          <div class="col-sm-6">
+                              <label for="groupName" class="form-label">GroupName</label>
+                              <input type="text" class="form-control" id="groupName" value="AC/DC" readonly>
+                          </div>
+        
+                          <div class="col-sm-6">
+                              <label for="genre" class="form-label">Genre</label>
+                              <input type="text" class="form-control" id="genre" value="Rock" readonly>
+                          </div>
+        
+                          <div class="col-sm-6">
+                          </div>
+                          <div class="col-sm-6">
+                              <label for="established" class="form-label">Established Year</label>
+                              <input type="text" class="form-control" id="established" value="1973" readonly>
+                          </div>
+                      </div>
+                      <div class="row g-1">
+                        <h3 class="pb-2">Artists</h3>
+          
+                        <div class="row mb-2 text-center">
+                          <div class="col-md-12 themed-grid-head-col">Name</div>
+                        </div>
+                        <div class="row mb-2 text-center">
+                          <div class="col-md-12 themed-grid-col">Angus Young</div>
+                        </div>
+                      </div> 
+                      <div class="row g-1">
+                        <h3 class="pb-2">Albums</h3>
+          
+                        <div class="row mb-2 text-center">
+                            <div class="col-md-10 themed-grid-head-col">Name</div>
+                            <div class="col-md-2 themed-grid-head-col">Year</div>
+                        </div>
+        
+                        <div class="row mb-2 text-center">
+                            <div class="col-md-10 themed-grid-col">High Voltage</div>
+                            <div class="col-md-2 themed-grid-col">1975</div>
+                        </div>
+                      </div>                      
+                  </form>
+              </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
