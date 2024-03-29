@@ -36,7 +36,15 @@ function fillList(renderPage) {
         const div = document.createElement('div');
         div.classList.add('col-md-12', 'themed-grid-col');
     
-        div.innerText = q.quote;
+        const quoteText = document.createElement('p');
+        quoteText.innerText = q.quote;
+        div.appendChild(quoteText);
+
+        const button = document.createElement('button');
+        button.textContent = 'More info';
+        button.classList.add('btn', 'btn-outline-success');
+        div.appendChild(button);
+
         _list.appendChild(div);
     }
 
