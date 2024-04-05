@@ -1,19 +1,32 @@
 'use strict';
-import {seedGenerator, uniqueId, randomNumber, deepCopy, isEqual} from '../SeidoHelpers/seido-helpers.js';
+import musicService from'./music-group-service.js';
 
-const _seeder = new seedGenerator();
-let _artists = _seeder.allQuotes;
+
+//Initialize the service
+const _service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
+  
+//Read Database info async
+const _data = await _service.readMusicGroupsAsync(0, true, null, 80);
+console.log(_data.pageItems);
+
+//list with music groups
+let _musicGroups = _data.pageItems;
+_musicGroups.forEach(m => {
+    console.log(m.name);
+});
 const _list = document.getElementById('list-of-items');
-const _pageNrBtns = document.getElementById('page-number-btn');
 
-//search bar and buttons
-const allQ = document.querySelector('#all-quotes-btn');
+//search bar and button
+const allGroups = document.querySelector('#all-groups-btn');
 const searchInput = document.getElementById("searchBar");
+const searchBtn = document.querySelector('#search-btn');
 const searchHits = document.querySelector('#search-hits');
-allQ.addEventListener('click', clickHandlerAllQ);
+allGroups.addEventListener("click", clickHandlerAllGroups);
 searchInput.addEventListener("keyup", clickHandlerSearch);
+searchBtn.addEventListener("click", clickHandlerSearchBtn);
 
 //pagination buttons
+const _pageNrBtns = document.getElementById('page-number-btn');
 const btnNext = document.querySelector('#btnNext');
 const btnPrev = document.querySelector('#btnPrev');
 btnNext.addEventListener('click', clickNext);
@@ -22,7 +35,7 @@ btnPrev.addEventListener('click', clickPrev);
 //pages
 let currentPage = 0;
 const pageSize = 10;
-let maxNrPages = Math.ceil(_artists.length/pageSize);
+let maxNrPages = Math.ceil(_musicGroups.length/pageSize);
  
 removeAllChildNodes(_list);
 removeAllChildNodes(_pageNrBtns);
@@ -30,19 +43,20 @@ fillList(0);
 
 function fillList(renderPage) {
 
-    searchHits.innerHTML = `The database now contains ${_artists.length} music groups`;
-    const pData = _artists.slice(pageSize*renderPage, pageSize*renderPage+pageSize);
+    searchHits.innerHTML = `The database now contains ${_musicGroups.length} music groups`;
+    const pData = _musicGroups.slice(pageSize*renderPage, pageSize*renderPage+pageSize);
     for (const q of pData) {
         const div = document.createElement('div');
         div.classList.add('col-md-12', 'themed-grid-col');
     
-        const quoteText = document.createElement('p');
-        quoteText.innerText = q.quote;
-        div.appendChild(quoteText);
+        const printGroupName = document.createElement('p');
+        printGroupName.innerText = q.name;
+        div.appendChild(printGroupName);
 
         const button = document.createElement('button');
         button.textContent = 'More info';
         button.classList.add('btn', 'btn-outline-success');
+        button.id = `${q.musicGroupId}`;
         button.addEventListener('click', clickHandlerMoreInfo);
         div.appendChild(button);
 
@@ -93,9 +107,9 @@ function clickNumber (event) {
     } 
 }
 
-function clickHandlerAllQ (event) {
- _artists = _seeder.allQuotes;
- maxNrPages = Math.ceil(_artists.length/pageSize);
+function clickHandlerAllGroups (event) {
+ _musicGroups = _data.pageItems;
+ maxNrPages = Math.ceil(_musicGroups.length/pageSize);
  currentPage = 0;
  removeAllChildNodes(_list);
  removeAllChildNodes(_pageNrBtns);
@@ -105,9 +119,9 @@ function clickHandlerAllQ (event) {
 function clickHandlerSearch (event) {
     if (event.key === "Enter") {
         event.preventDefault();
-        const searchText = event.target.value.toLowerCase();
-        _artists = _seeder.allQuotes.filter ((item) => item.quote.toLowerCase().includes(searchText));
-        maxNrPages = Math.ceil(_artists.length/pageSize);
+        const searchText = searchInput.value.toLowerCase();
+        _musicGroups = _data.pageItems.filter ((item) => item.name.toLowerCase().includes(searchText));
+        maxNrPages = Math.ceil(_musicGroups.length/pageSize);
         currentPage = 0;
         removeAllChildNodes(_list);
         removeAllChildNodes(_pageNrBtns);
@@ -116,11 +130,24 @@ function clickHandlerSearch (event) {
     }
 }
 
-function clickHandlerMoreInfo (event) {
-    
-    document.location.href = './detailsPage.html';
+function clickHandlerSearchBtn (event) {
+    event.preventDefault();
+    const searchText = searchInput.value.toLowerCase();
+    _musicGroups = _data.pageItems.filter ((item) => item.name.toLowerCase().includes(searchText));
+    maxNrPages = Math.ceil(_musicGroups.length/pageSize);
+    currentPage = 0;
+    removeAllChildNodes(_list);
+    removeAllChildNodes(_pageNrBtns);
+    fillList(0);
+    searchInput.value = null;
 }
 
+function clickHandlerMoreInfo (event) {
+    document.location.href = './detailsPage.html';
+    
+    // const chosenGroupId = event.target.id;
+    // const groupName = document.getElementById('groupName');
+}
 
 
 

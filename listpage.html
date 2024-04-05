@@ -37,7 +37,7 @@
 
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="./homepage.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="./listpage.html" class="nav-link">Artists</a></li>
+                <li class="nav-item"><a href="./listpage.html" class="nav-link">Music Groups</a></li>
             </ul>
         </header>
       </div>
@@ -47,13 +47,14 @@
         <!-- Individual pages -->
         <!-- Page Welcome -->
         <div class="container px-4 py-4" >
-          <h2 class="pb-2 border-bottom">Search for your favorite artists or discover new ones</h2>
+          <h2 class="pb-2 border-bottom">Search for your favorite music groups or discover new ones</h2>
   
           <!-- search function -->
           <div>
-            <input type="text" id="searchBar" placeholder="Search for artists..">
+            <input type="text" id="searchBar" placeholder="Search for music groups..">
+            <button id="search-btn" class="btn btn-outline-success">Search</button>
             <!-- all artists button -->
-            <button id="all-quotes-btn" class="btn btn-outline-success">All artists</button>
+            <button id="all-groups-btn" class="btn btn-outline-success">All Music Groups</button>
           </div>
 
           <p id="search-hits"></p>
@@ -61,7 +62,7 @@
           <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-5">
             <div class="col-md-7 col-lg-10">
                 <div class="row mb-2 text-center">
-                  <div class="col-md-12 themed-grid-head-col">Artists</div>
+                  <div class="col-md-12 themed-grid-head-col">Music Groups</div>
                 </div>
                 <div class="row mb-2 text-center" id="list-of-items">
                   <div class="col-md-12 themed-grid-col d-none">
@@ -105,9 +106,6 @@
       <!-- Bootstrap Javascript -->
       <script src="./script/bootstrap/bootstrap.bundle.min.js"></script>
 
-      <!-- SeidoAB script helpers -->
-      <script src="./script/seido/modals.js"></script>
-      <script src="./script/seido/select-list-items.js"></script>
       <script type="module" src="./script/listpage.js"></script>
     </body>
 </html>
