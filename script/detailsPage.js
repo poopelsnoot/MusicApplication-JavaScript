@@ -1,26 +1,29 @@
 'use strict';
 import musicService from'./music-group-service.js';
 
-//Initialize the service
-const _service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
-  
-//Read Database info async
-const _data = await _service.readMusicGroupsAsync(0, true, null, 80);
-console.log(_data.pageItems);
 
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
 
+async function findGroup(id) {
+    
+    //Initialize the service
+    const _service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
+    //get correct group
+    const _group = await _service.readMusicGroupAsync(id);
+    
+    return _group;
+}
 
-
-
-//get correct group
-const _testGroup = _data.pageItems[0];
+const group = await findGroup(id);
 
 //update info
 const groupName = document.getElementById("groupName");
-groupName.value = `${_testGroup.name}`;
+groupName.value = `${group.name}`;
 
 const genre = document.getElementById("genre");
-genre.value = `${_testGroup.strGenre}`;
+genre.value = `${group.strGenre}`;
 
 const established = document.getElementById("established");
-established.value = `${_testGroup.establishedYear}`;
+established.value = `${group.establishedYear}`;
+

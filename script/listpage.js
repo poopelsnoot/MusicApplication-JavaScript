@@ -1,7 +1,6 @@
 'use strict';
 import musicService from'./music-group-service.js';
 
-
 //Initialize the service
 const _service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
   
@@ -57,7 +56,7 @@ function fillList(renderPage) {
         button.textContent = 'More info';
         button.classList.add('btn', 'btn-outline-success');
         button.id = `${q.musicGroupId}`;
-        button.addEventListener('click', clickHandlerMoreInfo);
+        button.addEventListener('click', detailsPage);
         div.appendChild(button);
 
         _list.appendChild(div);
@@ -142,13 +141,13 @@ function clickHandlerSearchBtn (event) {
     searchInput.value = null;
 }
 
-function clickHandlerMoreInfo (event) {
-    document.location.href = './detailsPage.html';
-    
-    // const chosenGroupId = event.target.id;
-    // const groupName = document.getElementById('groupName');
-}
 
+async function detailsPage (event) {
+    event.preventDefault();
+
+    let groupUrl = `detailsPage.html?id=${event.target.id}`
+    window.location.href = groupUrl;
+}
 
 
 
