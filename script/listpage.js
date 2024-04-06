@@ -5,14 +5,10 @@ import musicService from'./music-group-service.js';
 const _service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
   
 //Read Database info async
-const _data = await _service.readMusicGroupsAsync(0, true, null, 80);
-console.log(_data.pageItems);
+const _data = await _service.readMusicGroupsAsync(0, false, null, 80);
 
 //list with music groups
 let _musicGroups = _data.pageItems;
-_musicGroups.forEach(m => {
-    console.log(m.name);
-});
 const _list = document.getElementById('list-of-items');
 
 //search bar and button
