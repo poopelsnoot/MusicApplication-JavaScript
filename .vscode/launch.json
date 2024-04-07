@@ -12,6 +12,13 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\script\\listpage.js"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "musicapp_sofie",
+            "url": "http://localhost:5501/listpage.html",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
