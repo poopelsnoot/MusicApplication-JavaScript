@@ -1,3 +1,19 @@
 .pageNrBtn button {
     display: inline-block;
 }
+
+.groupBtnDiv {
+    display: flex;
+    justify-content:space-between;
+}
+
+.groupNameTxt {
+    margin-left: 20%;
+}
+
+.moreInfoBtn {
+    margin-right: 20%;
+    min-width: 100px;
+    max-height: 40px;
+}
+

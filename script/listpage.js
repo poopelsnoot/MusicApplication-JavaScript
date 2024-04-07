@@ -42,15 +42,15 @@ function fillList(renderPage) {
     const pData = _musicGroups.slice(pageSize*renderPage, pageSize*renderPage+pageSize);
     for (const q of pData) {
         const div = document.createElement('div');
-        div.classList.add('col-md-12', 'themed-grid-col');
-    
+        div.classList.add('col-md-12', 'themed-grid-col', 'groupBtnDiv');
         const printGroupName = document.createElement('p');
+        printGroupName.classList.add("groupNameTxt");
         printGroupName.innerText = q.name;
         div.appendChild(printGroupName);
 
         const button = document.createElement('button');
         button.textContent = 'More info';
-        button.classList.add('btn', 'btn-outline-success');
+        button.classList.add('moreInfoBtn','btn', 'btn-outline-success');
         button.id = `${q.musicGroupId}`;
         button.addEventListener('click', detailsPage);
         div.appendChild(button);
